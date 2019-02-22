@@ -44,6 +44,24 @@ services:
     networks:
       - net
 
+# LOGIN
+  login:
+    container_name: login
+    image: 'thinkfree84/ax5_login:latest'
+    depends_on:
+      - core
+    build:
+      context: ../
+      dockerfile: src/tasks/login/Dockerfile
+    environment:
+      - AX_BROKER=mosquitto
+      - AX_HOST=login
+      - AX_PORT=8123
+    volumes:
+      - ./config:/etc/ax5
+    networks:
+      - net
+
 # ADMIN
   admin:
     container_name: admin
